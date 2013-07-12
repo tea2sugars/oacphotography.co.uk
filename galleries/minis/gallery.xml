@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<simpleviewerGallery maxImageWidth="480" maxImageHeight="480" textColor="0xFFFFFF" frameColor="0xFFFFFF" frameWidth="20" stagePadding="40" thumbnailColumns="3" thumbnailRows="3" navPosition="left" title="" enableRightClickOpen="true" backgroundImagePath="" imagePath="images/" thumbPath="thumb/">
+    <image>
+        <filename>OWS_6041.jpg</filename>
+        <caption>These mini albums are a great present  for parents, bridesmaids, ushers, family, friends and whoever else you can think of.  And at 3.75x5 inches they are a handy little size for you or your proud parent to show off at any occasion.  
+</caption>
+    </image>
+    <image>
+        <filename>OWS_6044.jpg</filename>
+        <caption>These mini albums are a great present  for parents, bridesmaids, ushers, family, friends and whoever else you can think of.  And at 3.75x5 inches they are a handy little size for you or your proud parent to show off at any occasion.  
+</caption>
+    </image>
+    <image>
+        <filename>OWS_6046.jpg</filename>
+        <caption>These mini albums are a great present  for parents, bridesmaids, ushers, family, friends and whoever else you can think of.  And at 3.75x5 inches they are a handy little size for you or your proud parent to show off at any occasion.  
+</caption>
+    </image>
+    <image>
+        <filename>OWS_6047.jpg</filename>
+        <caption>These mini albums are a great present  for parents, bridesmaids, ushers, family, friends and whoever else you can think of.  And at 3.75x5 inches they are a handy little size for you or your proud parent to show off at any occasion.  
+</caption>
+    </image>
+</simpleviewerGallery>
