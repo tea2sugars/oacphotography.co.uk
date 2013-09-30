@@ -1,7 +1,0 @@
-<?php
-/**
- * @file
- * Code for the TM: Users feature.
- */
-
-include_once 'tm_users.features.inc';

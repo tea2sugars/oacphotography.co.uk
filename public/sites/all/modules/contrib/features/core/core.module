@@ -1,7 +1,0 @@
-<?php
-/**
- * @file
- * Code for the TM: Core Layout feature.
- */
-
-include_once 'core.features.inc';

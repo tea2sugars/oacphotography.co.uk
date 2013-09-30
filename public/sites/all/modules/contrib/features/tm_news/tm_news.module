@@ -1,7 +1,0 @@
-<?php
-/**
- * @file
- * Code for the TM: News feature.
- */
-
-include_once 'tm_news.features.inc';
