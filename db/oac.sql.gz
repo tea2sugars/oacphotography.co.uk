@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Sep 30, 2013 at 04:37 PM
+-- Generation Time: Sep 30, 2013 at 05:56 PM
 -- Server version: 5.5.29
 -- PHP Version: 5.4.10
 
@@ -68,6 +68,68 @@ CREATE TABLE `batch` (
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `bean`
+--
+
+CREATE TABLE `bean` (
+  `bid` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT 'Primary Key: Unique bean item ID.',
+  `vid` int(10) unsigned NOT NULL DEFAULT '0' COMMENT 'Revision ID',
+  `delta` varchar(32) NOT NULL COMMENT 'The bean’s block.delta.',
+  `label` varchar(255) NOT NULL DEFAULT '' COMMENT 'The Displays in the Admin page.',
+  `title` varchar(255) NOT NULL DEFAULT '' COMMENT 'The human-readable name of this bean.',
+  `type` varchar(32) NOT NULL DEFAULT '' COMMENT 'The bean_type.type of this bean.',
+  `view_mode` varchar(32) NOT NULL DEFAULT 'default' COMMENT 'The View mode to use as the bean.',
+  `data` longtext COMMENT 'A serialized array of additional data related to this bean.',
+  `uid` int(10) unsigned NOT NULL DEFAULT '0' COMMENT 'The author of the revision.',
+  `created` int(11) NOT NULL DEFAULT '0' COMMENT 'The Unix timestamp when the entity was created.',
+  `changed` int(11) NOT NULL DEFAULT '0' COMMENT 'The Unix timestamp when the entity was most recently saved.',
+  PRIMARY KEY (`bid`),
+  UNIQUE KEY `vid` (`vid`),
+  UNIQUE KEY `delta` (`delta`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='Stores bean items.' AUTO_INCREMENT=1 ;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `bean_revision`
+--
+
+CREATE TABLE `bean_revision` (
+  `bid` int(10) unsigned NOT NULL DEFAULT '0' COMMENT 'The bean this version belongs to.',
+  `vid` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT 'The primary identifier for this version.',
+  `uid` int(10) unsigned NOT NULL DEFAULT '0' COMMENT 'The author of the revision.',
+  `delta` varchar(32) NOT NULL DEFAULT '0' COMMENT 'The bean’s block.delta.',
+  `label` varchar(255) NOT NULL DEFAULT '' COMMENT 'The Displays in the Admin page.',
+  `title` varchar(255) NOT NULL DEFAULT '' COMMENT 'The human-readable name of this bean.',
+  `type` varchar(32) NOT NULL DEFAULT '' COMMENT 'The bean_type.type of this bean.',
+  `view_mode` varchar(32) NOT NULL DEFAULT 'default' COMMENT 'The View mode to use as the bean.',
+  `data` longtext COMMENT 'A serialized array of additional data related to this bean.',
+  `log` longtext COMMENT 'A log message associated with the revision.',
+  `created` int(11) NOT NULL DEFAULT '0' COMMENT 'The Unix timestamp when the entity was created.',
+  `changed` int(11) NOT NULL DEFAULT '0' COMMENT 'The Unix timestamp when the entity was most recently saved.',
+  PRIMARY KEY (`vid`),
+  KEY `bid` (`bid`,`vid`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='Stores bean items.' AUTO_INCREMENT=1 ;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `bean_type`
+--
+
+CREATE TABLE `bean_type` (
+  `type_id` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT 'The Type ID of this block. Only used internally by CTools',
+  `name` varchar(32) NOT NULL COMMENT 'The machine-readable name of this bean type.',
+  `label` varchar(255) NOT NULL DEFAULT '' COMMENT 'The human-readable name of this bean type.',
+  `options` longtext COMMENT 'Block content configuration.',
+  `description` longtext COMMENT 'The description of this bean type.',
+  PRIMARY KEY (`type_id`),
+  UNIQUE KEY `name` (`name`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='Stores information about all defined bean types.' AUTO_INCREMENT=1 ;
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `block`
 --
 
@@ -87,7 +149,7 @@ CREATE TABLE `block` (
   PRIMARY KEY (`bid`),
   UNIQUE KEY `tmd` (`theme`,`module`,`delta`),
   KEY `list` (`theme`,`status`,`region`,`weight`,`module`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COMMENT='Stores block settings, such as region and visibility...' AUTO_INCREMENT=31 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COMMENT='Stores block settings, such as region and visibility...' AUTO_INCREMENT=81 ;
 
 -- --------------------------------------------------------
 
@@ -148,6 +210,58 @@ CREATE TABLE `block_role` (
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `box`
+--
+
+CREATE TABLE `box` (
+  `delta` varchar(32) NOT NULL COMMENT 'The block’s block.delta.',
+  `plugin_key` varchar(64) NOT NULL COMMENT 'The plugin responsible for this block.',
+  `title` varchar(64) NOT NULL COMMENT 'Block title.',
+  `description` varchar(255) DEFAULT '' COMMENT 'Block description.',
+  `options` longtext COMMENT 'Block content configuration.',
+  PRIMARY KEY (`delta`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='Stores contents of custom-made blocks.';
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `breakpoints`
+--
+
+CREATE TABLE `breakpoints` (
+  `id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'The internal identifier for a responsive images suffix',
+  `machine_name` varchar(255) NOT NULL COMMENT 'The machine name of the breakpoint.',
+  `name` varchar(255) NOT NULL COMMENT 'The name of the breakpoint.',
+  `breakpoint` varchar(255) NOT NULL DEFAULT '' COMMENT 'media query',
+  `source` varchar(255) NOT NULL DEFAULT '' COMMENT 'name of theme, module',
+  `source_type` varchar(255) NOT NULL DEFAULT '' COMMENT 'is breakpoint defined by theme, module or custom',
+  `status` int(11) NOT NULL DEFAULT '1' COMMENT 'enabled or disabled',
+  `weight` int(11) NOT NULL DEFAULT '0' COMMENT 'weight',
+  `multipliers` blob NOT NULL COMMENT 'all enabled multipliers',
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `machine_name` (`machine_name`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='Breakpoints' AUTO_INCREMENT=1 ;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `breakpoint_group`
+--
+
+CREATE TABLE `breakpoint_group` (
+  `id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'The internal identifier for a responsive images suffix',
+  `machine_name` varchar(255) NOT NULL COMMENT 'The machine name of the breakpoint.',
+  `name` varchar(255) NOT NULL COMMENT 'The name of the breakpoint.',
+  `breakpoints` blob NOT NULL COMMENT 'breakpoints',
+  `type` varchar(255) NOT NULL DEFAULT '' COMMENT 'theme, module or custom',
+  `overridden` int(11) NOT NULL DEFAULT '0' COMMENT 'Boolean indicating if this group is overriden',
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `machine_name` (`machine_name`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='Breakpoint group' AUTO_INCREMENT=1 ;
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `cache`
 --
 
@@ -160,6 +274,22 @@ CREATE TABLE `cache` (
   PRIMARY KEY (`cid`),
   KEY `expire` (`expire`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='Generic cache table for caching things not separated out...';
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `cache_admin_menu`
+--
+
+CREATE TABLE `cache_admin_menu` (
+  `cid` varchar(255) NOT NULL DEFAULT '' COMMENT 'Primary Key: Unique cache ID.',
+  `data` longblob COMMENT 'A collection of data to cache.',
+  `expire` int(11) NOT NULL DEFAULT '0' COMMENT 'A Unix timestamp indicating when the cache entry should expire, or 0 for never.',
+  `created` int(11) NOT NULL DEFAULT '0' COMMENT 'A Unix timestamp indicating when the cache entry was created.',
+  `serialized` smallint(6) NOT NULL DEFAULT '0' COMMENT 'A flag to indicate whether content is serialized (1) or not (0).',
+  PRIMARY KEY (`cid`),
+  KEY `expire` (`expire`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='Cache table for Administration menu to store client-side...';
 
 -- --------------------------------------------------------
 
@@ -192,6 +322,118 @@ CREATE TABLE `cache_bootstrap` (
   PRIMARY KEY (`cid`),
   KEY `expire` (`expire`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='Cache table for data required to bootstrap Drupal, may be...';
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `cache_entity_bean`
+--
+
+CREATE TABLE `cache_entity_bean` (
+  `cid` varchar(255) NOT NULL DEFAULT '' COMMENT 'Primary Key: Unique cache ID.',
+  `data` longblob COMMENT 'A collection of data to cache.',
+  `expire` int(11) NOT NULL DEFAULT '0' COMMENT 'A Unix timestamp indicating when the cache entry should expire, or 0 for never.',
+  `created` int(11) NOT NULL DEFAULT '0' COMMENT 'A Unix timestamp indicating when the cache entry was created.',
+  `serialized` smallint(6) NOT NULL DEFAULT '0' COMMENT 'A flag to indicate whether content is serialized (1) or not (0).',
+  PRIMARY KEY (`cid`),
+  KEY `expire` (`expire`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='Entity Cache table for the Bean module.';
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `cache_entity_comment`
+--
+
+CREATE TABLE `cache_entity_comment` (
+  `cid` varchar(255) NOT NULL DEFAULT '' COMMENT 'Primary Key: Unique cache ID.',
+  `data` longblob COMMENT 'A collection of data to cache.',
+  `expire` int(11) NOT NULL DEFAULT '0' COMMENT 'A Unix timestamp indicating when the cache entry should expire, or 0 for never.',
+  `created` int(11) NOT NULL DEFAULT '0' COMMENT 'A Unix timestamp indicating when the cache entry was created.',
+  `serialized` smallint(6) NOT NULL DEFAULT '0' COMMENT 'A flag to indicate whether content is serialized (1) or not (0).',
+  PRIMARY KEY (`cid`),
+  KEY `expire` (`expire`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='Cache table used to store comment entity records.';
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `cache_entity_file`
+--
+
+CREATE TABLE `cache_entity_file` (
+  `cid` varchar(255) NOT NULL DEFAULT '' COMMENT 'Primary Key: Unique cache ID.',
+  `data` longblob COMMENT 'A collection of data to cache.',
+  `expire` int(11) NOT NULL DEFAULT '0' COMMENT 'A Unix timestamp indicating when the cache entry should expire, or 0 for never.',
+  `created` int(11) NOT NULL DEFAULT '0' COMMENT 'A Unix timestamp indicating when the cache entry was created.',
+  `serialized` smallint(6) NOT NULL DEFAULT '0' COMMENT 'A flag to indicate whether content is serialized (1) or not (0).',
+  PRIMARY KEY (`cid`),
+  KEY `expire` (`expire`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='Cache table used to store file entity records.';
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `cache_entity_node`
+--
+
+CREATE TABLE `cache_entity_node` (
+  `cid` varchar(255) NOT NULL DEFAULT '' COMMENT 'Primary Key: Unique cache ID.',
+  `data` longblob COMMENT 'A collection of data to cache.',
+  `expire` int(11) NOT NULL DEFAULT '0' COMMENT 'A Unix timestamp indicating when the cache entry should expire, or 0 for never.',
+  `created` int(11) NOT NULL DEFAULT '0' COMMENT 'A Unix timestamp indicating when the cache entry was created.',
+  `serialized` smallint(6) NOT NULL DEFAULT '0' COMMENT 'A flag to indicate whether content is serialized (1) or not (0).',
+  PRIMARY KEY (`cid`),
+  KEY `expire` (`expire`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='Cache table used to store node entity records.';
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `cache_entity_taxonomy_term`
+--
+
+CREATE TABLE `cache_entity_taxonomy_term` (
+  `cid` varchar(255) NOT NULL DEFAULT '' COMMENT 'Primary Key: Unique cache ID.',
+  `data` longblob COMMENT 'A collection of data to cache.',
+  `expire` int(11) NOT NULL DEFAULT '0' COMMENT 'A Unix timestamp indicating when the cache entry should expire, or 0 for never.',
+  `created` int(11) NOT NULL DEFAULT '0' COMMENT 'A Unix timestamp indicating when the cache entry was created.',
+  `serialized` smallint(6) NOT NULL DEFAULT '0' COMMENT 'A flag to indicate whether content is serialized (1) or not (0).',
+  PRIMARY KEY (`cid`),
+  KEY `expire` (`expire`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='Cache table used to store taxonomy_term entity records.';
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `cache_entity_taxonomy_vocabulary`
+--
+
+CREATE TABLE `cache_entity_taxonomy_vocabulary` (
+  `cid` varchar(255) NOT NULL DEFAULT '' COMMENT 'Primary Key: Unique cache ID.',
+  `data` longblob COMMENT 'A collection of data to cache.',
+  `expire` int(11) NOT NULL DEFAULT '0' COMMENT 'A Unix timestamp indicating when the cache entry should expire, or 0 for never.',
+  `created` int(11) NOT NULL DEFAULT '0' COMMENT 'A Unix timestamp indicating when the cache entry was created.',
+  `serialized` smallint(6) NOT NULL DEFAULT '0' COMMENT 'A flag to indicate whether content is serialized (1) or not (0).',
+  PRIMARY KEY (`cid`),
+  KEY `expire` (`expire`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='Cache table used to store taxonomy_vocabulary entity...';
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `cache_entity_user`
+--
+
+CREATE TABLE `cache_entity_user` (
+  `cid` varchar(255) NOT NULL DEFAULT '' COMMENT 'Primary Key: Unique cache ID.',
+  `data` longblob COMMENT 'A collection of data to cache.',
+  `expire` int(11) NOT NULL DEFAULT '0' COMMENT 'A Unix timestamp indicating when the cache entry should expire, or 0 for never.',
+  `created` int(11) NOT NULL DEFAULT '0' COMMENT 'A Unix timestamp indicating when the cache entry was created.',
+  `serialized` smallint(6) NOT NULL DEFAULT '0' COMMENT 'A flag to indicate whether content is serialized (1) or not (0).',
+  PRIMARY KEY (`cid`),
+  KEY `expire` (`expire`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='Cache table used to store user entity records.';
 
 -- --------------------------------------------------------
 
@@ -260,6 +502,22 @@ CREATE TABLE `cache_image` (
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `cache_libraries`
+--
+
+CREATE TABLE `cache_libraries` (
+  `cid` varchar(255) NOT NULL DEFAULT '' COMMENT 'Primary Key: Unique cache ID.',
+  `data` longblob COMMENT 'A collection of data to cache.',
+  `expire` int(11) NOT NULL DEFAULT '0' COMMENT 'A Unix timestamp indicating when the cache entry should expire, or 0 for never.',
+  `created` int(11) NOT NULL DEFAULT '0' COMMENT 'A Unix timestamp indicating when the cache entry was created.',
+  `serialized` smallint(6) NOT NULL DEFAULT '0' COMMENT 'A flag to indicate whether content is serialized (1) or not (0).',
+  PRIMARY KEY (`cid`),
+  KEY `expire` (`expire`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='Cache table to store library information.';
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `cache_menu`
 --
 
@@ -308,6 +566,70 @@ CREATE TABLE `cache_path` (
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `cache_simplemeta`
+--
+
+CREATE TABLE `cache_simplemeta` (
+  `cid` varchar(255) NOT NULL DEFAULT '' COMMENT 'Primary Key: Unique cache ID.',
+  `data` longblob COMMENT 'A collection of data to cache.',
+  `expire` int(11) NOT NULL DEFAULT '0' COMMENT 'A Unix timestamp indicating when the cache entry should expire, or 0 for never.',
+  `created` int(11) NOT NULL DEFAULT '0' COMMENT 'A Unix timestamp indicating when the cache entry was created.',
+  `serialized` smallint(6) NOT NULL DEFAULT '0' COMMENT 'A flag to indicate whether content is serialized (1) or not (0).',
+  PRIMARY KEY (`cid`),
+  KEY `expire` (`expire`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='Generic cache table for caching things not separated out...';
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `cache_token`
+--
+
+CREATE TABLE `cache_token` (
+  `cid` varchar(255) NOT NULL DEFAULT '' COMMENT 'Primary Key: Unique cache ID.',
+  `data` longblob COMMENT 'A collection of data to cache.',
+  `expire` int(11) NOT NULL DEFAULT '0' COMMENT 'A Unix timestamp indicating when the cache entry should expire, or 0 for never.',
+  `created` int(11) NOT NULL DEFAULT '0' COMMENT 'A Unix timestamp indicating when the cache entry was created.',
+  `serialized` smallint(6) NOT NULL DEFAULT '0' COMMENT 'A flag to indicate whether content is serialized (1) or not (0).',
+  PRIMARY KEY (`cid`),
+  KEY `expire` (`expire`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='Cache table for token information.';
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `cache_views`
+--
+
+CREATE TABLE `cache_views` (
+  `cid` varchar(255) NOT NULL DEFAULT '' COMMENT 'Primary Key: Unique cache ID.',
+  `data` longblob COMMENT 'A collection of data to cache.',
+  `expire` int(11) NOT NULL DEFAULT '0' COMMENT 'A Unix timestamp indicating when the cache entry should expire, or 0 for never.',
+  `created` int(11) NOT NULL DEFAULT '0' COMMENT 'A Unix timestamp indicating when the cache entry was created.',
+  `serialized` smallint(6) NOT NULL DEFAULT '0' COMMENT 'A flag to indicate whether content is serialized (1) or not (0).',
+  PRIMARY KEY (`cid`),
+  KEY `expire` (`expire`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='Generic cache table for caching things not separated out...';
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `cache_views_data`
+--
+
+CREATE TABLE `cache_views_data` (
+  `cid` varchar(255) NOT NULL DEFAULT '' COMMENT 'Primary Key: Unique cache ID.',
+  `data` longblob COMMENT 'A collection of data to cache.',
+  `expire` int(11) NOT NULL DEFAULT '0' COMMENT 'A Unix timestamp indicating when the cache entry should expire, or 0 for never.',
+  `created` int(11) NOT NULL DEFAULT '0' COMMENT 'A Unix timestamp indicating when the cache entry was created.',
+  `serialized` smallint(6) NOT NULL DEFAULT '1' COMMENT 'A flag to indicate whether content is serialized (1) or not (0).',
+  PRIMARY KEY (`cid`),
+  KEY `expire` (`expire`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='Cache table for views to store pre-rendered queries,...';
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `comment`
 --
 
@@ -333,6 +655,86 @@ CREATE TABLE `comment` (
   KEY `comment_nid_language` (`nid`,`language`),
   KEY `comment_created` (`created`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='Stores comments and associated data.' AUTO_INCREMENT=1 ;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `context`
+--
+
+CREATE TABLE `context` (
+  `name` varchar(255) NOT NULL DEFAULT '' COMMENT 'The primary identifier for a context.',
+  `description` varchar(255) NOT NULL DEFAULT '' COMMENT 'Description for this context.',
+  `tag` varchar(255) NOT NULL DEFAULT '' COMMENT 'Tag for this context.',
+  `conditions` text COMMENT 'Serialized storage of all context condition settings.',
+  `reactions` text COMMENT 'Serialized storage of all context reaction settings.',
+  `condition_mode` int(11) DEFAULT '0' COMMENT 'Condition mode for this context.',
+  PRIMARY KEY (`name`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='Storage for normal (user-defined) contexts.';
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `ctools_access_ruleset`
+--
+
+CREATE TABLE `ctools_access_ruleset` (
+  `rsid` int(11) NOT NULL AUTO_INCREMENT COMMENT 'A database primary key to ensure uniqueness',
+  `name` varchar(255) DEFAULT NULL COMMENT 'Unique ID for this ruleset. Used to identify it programmatically.',
+  `admin_title` varchar(255) DEFAULT NULL COMMENT 'Administrative title for this ruleset.',
+  `admin_description` longtext COMMENT 'Administrative description for this ruleset.',
+  `requiredcontexts` longtext COMMENT 'Any required contexts for this ruleset.',
+  `contexts` longtext COMMENT 'Any embedded contexts for this ruleset.',
+  `relationships` longtext COMMENT 'Any relationships for this ruleset.',
+  `access` longtext COMMENT 'The actual group of access plugins for this ruleset.',
+  PRIMARY KEY (`rsid`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='Contains exportable customized access rulesets.' AUTO_INCREMENT=1 ;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `ctools_css_cache`
+--
+
+CREATE TABLE `ctools_css_cache` (
+  `cid` varchar(128) NOT NULL COMMENT 'The CSS ID this cache object belongs to.',
+  `filename` varchar(255) DEFAULT NULL COMMENT 'The filename this CSS is stored in.',
+  `css` longtext COMMENT 'CSS being stored.',
+  `filter` tinyint(4) DEFAULT NULL COMMENT 'Whether or not this CSS needs to be filtered.',
+  PRIMARY KEY (`cid`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='A special cache used to store CSS that must be non-volatile.';
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `ctools_custom_content`
+--
+
+CREATE TABLE `ctools_custom_content` (
+  `cid` int(11) NOT NULL AUTO_INCREMENT COMMENT 'A database primary key to ensure uniqueness',
+  `name` varchar(255) DEFAULT NULL COMMENT 'Unique ID for this content. Used to identify it programmatically.',
+  `admin_title` varchar(255) DEFAULT NULL COMMENT 'Administrative title for this content.',
+  `admin_description` longtext COMMENT 'Administrative description for this content.',
+  `category` varchar(255) DEFAULT NULL COMMENT 'Administrative category for this content.',
+  `settings` longtext COMMENT 'Serialized settings for the actual content to be used',
+  PRIMARY KEY (`cid`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='Contains exportable customized content for this site.' AUTO_INCREMENT=1 ;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `ctools_object_cache`
+--
+
+CREATE TABLE `ctools_object_cache` (
+  `sid` varchar(64) NOT NULL COMMENT 'The session ID this cache object belongs to.',
+  `name` varchar(128) NOT NULL COMMENT 'The name of the object this cache is attached to.',
+  `obj` varchar(32) NOT NULL COMMENT 'The type of the object this cache is attached to; this essentially represents the owner so that several sub-systems can use this cache.',
+  `updated` int(10) unsigned NOT NULL DEFAULT '0' COMMENT 'The time this cache was created or updated.',
+  `data` longblob COMMENT 'Serialized data being stored.',
+  PRIMARY KEY (`sid`,`obj`,`name`),
+  KEY `updated` (`updated`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='A special cache used to store objects that are being...';
 
 -- --------------------------------------------------------
 
@@ -379,6 +781,35 @@ CREATE TABLE `date_format_type` (
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `delta`
+--
+
+CREATE TABLE `delta` (
+  `machine_name` varchar(32) NOT NULL COMMENT 'The system name of this theme settings template.',
+  `name` varchar(128) NOT NULL COMMENT 'The friendly name of this theme settings template.',
+  `description` mediumtext NOT NULL COMMENT 'A brief description of this theme settings template.',
+  `theme` varchar(128) NOT NULL COMMENT 'The theme for which this theme settings template is relevant.',
+  `mode` varchar(32) NOT NULL COMMENT 'The mode that this template operrates in.',
+  `parent` varchar(32) NOT NULL COMMENT 'The system name of the parent of this theme settings template.',
+  `settings` longblob COMMENT 'Serialized data which is a copy of the theme settings array stored in the system table based on these overrides',
+  PRIMARY KEY (`machine_name`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='Stores theme-settings templates that allow overriding the...';
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `epsacrop_files`
+--
+
+CREATE TABLE `epsacrop_files` (
+  `fid` int(10) unsigned NOT NULL COMMENT 'TODO: please describe this field!',
+  `coords` longtext NOT NULL COMMENT 'TODO: please describe this field!',
+  PRIMARY KEY (`fid`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='TODO: please describe this table!';
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `field_config`
 --
 
@@ -405,7 +836,7 @@ CREATE TABLE `field_config` (
   KEY `storage_module` (`storage_module`),
   KEY `type` (`type`),
   KEY `storage_type` (`storage_type`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=5 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=6 ;
 
 -- --------------------------------------------------------
 
@@ -424,7 +855,7 @@ CREATE TABLE `field_config_instance` (
   PRIMARY KEY (`id`),
   KEY `field_name_bundle` (`field_name`,`entity_type`,`bundle`),
   KEY `deleted` (`deleted`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=7 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=10 ;
 
 -- --------------------------------------------------------
 
@@ -536,6 +967,31 @@ CREATE TABLE `field_data_field_tags` (
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `field_data_taxonomy_wp_blog_tags`
+--
+
+CREATE TABLE `field_data_taxonomy_wp_blog_tags` (
+  `entity_type` varchar(128) NOT NULL DEFAULT '' COMMENT 'The entity type this data is attached to',
+  `bundle` varchar(128) NOT NULL DEFAULT '' COMMENT 'The field instance bundle to which this row belongs, used when deleting a field instance',
+  `deleted` tinyint(4) NOT NULL DEFAULT '0' COMMENT 'A boolean indicating whether this data item has been deleted',
+  `entity_id` int(10) unsigned NOT NULL COMMENT 'The entity id this data is attached to',
+  `revision_id` int(10) unsigned DEFAULT NULL COMMENT 'The entity revision id this data is attached to, or NULL if the entity type is not versioned',
+  `language` varchar(32) NOT NULL DEFAULT '' COMMENT 'The language for this data item.',
+  `delta` int(10) unsigned NOT NULL COMMENT 'The sequence number for this data item, used for multi-value fields',
+  `taxonomy_wp_blog_tags_tid` int(10) unsigned DEFAULT NULL,
+  PRIMARY KEY (`entity_type`,`entity_id`,`deleted`,`delta`,`language`),
+  KEY `entity_type` (`entity_type`),
+  KEY `bundle` (`bundle`),
+  KEY `deleted` (`deleted`),
+  KEY `entity_id` (`entity_id`),
+  KEY `revision_id` (`revision_id`),
+  KEY `language` (`language`),
+  KEY `taxonomy_wp_blog_tags_tid` (`taxonomy_wp_blog_tags_tid`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='Data storage for field 5 (taxonomy_wp_blog_tags)';
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `field_revision_body`
 --
 
@@ -643,6 +1099,31 @@ CREATE TABLE `field_revision_field_tags` (
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `field_revision_taxonomy_wp_blog_tags`
+--
+
+CREATE TABLE `field_revision_taxonomy_wp_blog_tags` (
+  `entity_type` varchar(128) NOT NULL DEFAULT '' COMMENT 'The entity type this data is attached to',
+  `bundle` varchar(128) NOT NULL DEFAULT '' COMMENT 'The field instance bundle to which this row belongs, used when deleting a field instance',
+  `deleted` tinyint(4) NOT NULL DEFAULT '0' COMMENT 'A boolean indicating whether this data item has been deleted',
+  `entity_id` int(10) unsigned NOT NULL COMMENT 'The entity id this data is attached to',
+  `revision_id` int(10) unsigned NOT NULL COMMENT 'The entity revision id this data is attached to',
+  `language` varchar(32) NOT NULL DEFAULT '' COMMENT 'The language for this data item.',
+  `delta` int(10) unsigned NOT NULL COMMENT 'The sequence number for this data item, used for multi-value fields',
+  `taxonomy_wp_blog_tags_tid` int(10) unsigned DEFAULT NULL,
+  PRIMARY KEY (`entity_type`,`entity_id`,`revision_id`,`deleted`,`delta`,`language`),
+  KEY `entity_type` (`entity_type`),
+  KEY `bundle` (`bundle`),
+  KEY `deleted` (`deleted`),
+  KEY `entity_id` (`entity_id`),
+  KEY `revision_id` (`revision_id`),
+  KEY `language` (`language`),
+  KEY `taxonomy_wp_blog_tags_tid` (`taxonomy_wp_blog_tags_tid`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='Revision archive storage for field 5 (taxonomy_wp_blog_tags)';
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `file_managed`
 --
 
@@ -717,6 +1198,37 @@ CREATE TABLE `filter_format` (
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `flexslider_optionset`
+--
+
+CREATE TABLE `flexslider_optionset` (
+  `name` varchar(255) NOT NULL COMMENT 'The machine-readable option set name.',
+  `title` varchar(255) NOT NULL COMMENT 'The human-readable title for this option set.',
+  `theme` varchar(255) NOT NULL DEFAULT 'classic' COMMENT 'The flexslider theme.',
+  `imagestyle_normal` varchar(255) NOT NULL DEFAULT 'flexslider_full' COMMENT 'The image style for normal images.',
+  `imagestyle_thumbnail` varchar(255) NOT NULL DEFAULT 'flexslider_thumbnail' COMMENT 'The image style for thumbnail images.',
+  `options` longblob COMMENT 'The options array.',
+  PRIMARY KEY (`name`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='Store option sets for flexslider instances.';
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `flexslider_picture_optionset`
+--
+
+CREATE TABLE `flexslider_picture_optionset` (
+  `id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'The internal identifier.',
+  `flexslider_optionset` varchar(255) NOT NULL COMMENT 'The machine-readable option set name.',
+  `imagestyle_type` varchar(255) NOT NULL COMMENT 'One of image_style or picture_mapping.',
+  `mapping` varchar(255) DEFAULT NULL COMMENT 'The picture mapping for this optionset.',
+  PRIMARY KEY (`id`),
+  KEY `imagestyle_type` (`imagestyle_type`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='Saves which flexslider optionsets use picture mappings...' AUTO_INCREMENT=1 ;
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `flood`
 --
 
@@ -730,6 +1242,24 @@ CREATE TABLE `flood` (
   KEY `allow` (`event`,`identifier`,`timestamp`),
   KEY `purge` (`expiration`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='Flood controls the threshold of events, such as the...' AUTO_INCREMENT=1 ;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `follow_links`
+--
+
+CREATE TABLE `follow_links` (
+  `lid` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT 'Unique identifier for the follow_links.',
+  `name` varchar(255) NOT NULL DEFAULT '' COMMENT 'The machine name of the follow_links.',
+  `uid` int(11) NOT NULL DEFAULT '0' COMMENT 'User’s users uid.  Sitewide follow_links use uid 0',
+  `path` varchar(255) NOT NULL DEFAULT '' COMMENT 'The Drupal path or extenal URL the follow_links should point to.',
+  `options` text COMMENT 'A serialized array of options to be passed to the url() or l() function, such as a query string or HTML attributes.',
+  `title` varchar(255) NOT NULL DEFAULT '' COMMENT 'The human readable name for the link.',
+  `weight` tinyint(4) NOT NULL DEFAULT '0' COMMENT 'The weight of this follow_links.',
+  PRIMARY KEY (`lid`),
+  UNIQUE KEY `uid_name` (`uid`,`name`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COMMENT='Stores sitewide and user follow links.' AUTO_INCREMENT=2 ;
 
 -- --------------------------------------------------------
 
@@ -826,7 +1356,7 @@ CREATE TABLE `menu_links` (
   KEY `menu_plid_expand_child` (`menu_name`,`plid`,`expanded`,`has_children`),
   KEY `menu_parents` (`menu_name`,`p1`,`p2`,`p3`,`p4`,`p5`,`p6`,`p7`,`p8`,`p9`),
   KEY `router_path` (`router_path`(128))
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COMMENT='Contains the individual links within a menu.' AUTO_INCREMENT=298 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COMMENT='Contains the individual links within a menu.' AUTO_INCREMENT=536 ;
 
 -- --------------------------------------------------------
 
@@ -863,6 +1393,20 @@ CREATE TABLE `menu_router` (
   KEY `tab_parent` (`tab_parent`(64),`weight`,`title`),
   KEY `tab_root_weight_title` (`tab_root`(64),`weight`,`title`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='Maps paths to various callbacks (access, page and title)';
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `metatags_quick_path_based`
+--
+
+CREATE TABLE `metatags_quick_path_based` (
+  `id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'Entity id',
+  `path` varchar(255) NOT NULL COMMENT 'The path of the page to apply meta tags to',
+  `lang` varchar(8) NOT NULL COMMENT 'Language code',
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `lang_path` (`lang`,`path`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='Path based meta tags' AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -977,6 +1521,122 @@ CREATE TABLE `node_type` (
   `orig_type` varchar(255) NOT NULL DEFAULT '' COMMENT 'The original machine-readable name of this node type. This may be different from the current type name if the locked field is 0.',
   PRIMARY KEY (`type`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='Stores information about all defined node types.';
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `oauth_common_consumer`
+--
+
+CREATE TABLE `oauth_common_consumer` (
+  `csid` int(11) NOT NULL AUTO_INCREMENT COMMENT 'Primary ID field for the table. Not used for anything except internal lookups.',
+  `key_hash` char(40) NOT NULL COMMENT 'SHA1-hash of consumer_key.',
+  `consumer_key` text NOT NULL COMMENT 'Consumer key.',
+  `secret` text NOT NULL COMMENT 'Consumer secret.',
+  `configuration` longtext NOT NULL COMMENT 'Consumer configuration',
+  PRIMARY KEY (`csid`),
+  KEY `key_hash` (`key_hash`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='Keys and secrets for OAuth consumers, both those provided...' AUTO_INCREMENT=1 ;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `oauth_common_context`
+--
+
+CREATE TABLE `oauth_common_context` (
+  `cid` int(11) NOT NULL AUTO_INCREMENT COMMENT 'Primary ID field for the table. Not used for anything except internal lookups.',
+  `name` varchar(32) NOT NULL COMMENT 'The computer-readable name of the context.',
+  `title` varchar(100) NOT NULL COMMENT 'The localizable title of the authorization context.',
+  `authorization_options` longtext NOT NULL COMMENT 'Authorization options.',
+  `authorization_levels` longtext NOT NULL COMMENT 'Authorization levels for the context.',
+  PRIMARY KEY (`cid`),
+  UNIQUE KEY `context` (`name`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='Stores contexts for OAuth common' AUTO_INCREMENT=1 ;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `oauth_common_nonce`
+--
+
+CREATE TABLE `oauth_common_nonce` (
+  `nonce` varchar(255) NOT NULL COMMENT 'The random string used on each request.',
+  `timestamp` int(11) NOT NULL COMMENT 'The timestamp of the request.',
+  `token_key` varchar(32) NOT NULL COMMENT 'Token key.',
+  PRIMARY KEY (`nonce`),
+  KEY `timekey` (`timestamp`,`token_key`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='Stores timestamp against nonce for repeat attacks.';
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `oauth_common_provider_consumer`
+--
+
+CREATE TABLE `oauth_common_provider_consumer` (
+  `csid` int(10) unsigned DEFAULT '0' COMMENT 'The oauth_common_consumer.csid this data is related to.',
+  `consumer_key` char(32) NOT NULL COMMENT 'Consumer key.',
+  `created` int(11) NOT NULL DEFAULT '0' COMMENT 'The time that the consumer was created, as a Unix timestamp.',
+  `changed` int(11) NOT NULL DEFAULT '0' COMMENT 'The last time the consumer was edited, as a Unix timestamp.',
+  `uid` int(10) unsigned NOT NULL COMMENT 'The application owner.',
+  `name` varchar(128) NOT NULL COMMENT 'The application name.',
+  `context` varchar(32) NOT NULL DEFAULT '' COMMENT 'The application context.',
+  `callback_url` varchar(255) NOT NULL COMMENT 'Callback url.',
+  PRIMARY KEY (`consumer_key`),
+  UNIQUE KEY `csid` (`csid`),
+  KEY `uid` (`uid`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='Additional data for OAuth consumers provided by this site.';
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `oauth_common_provider_token`
+--
+
+CREATE TABLE `oauth_common_provider_token` (
+  `tid` int(10) unsigned DEFAULT '0' COMMENT 'The oauth_common_token.tid this data is related to.',
+  `token_key` char(32) NOT NULL COMMENT 'Token key.',
+  `created` int(11) NOT NULL DEFAULT '0' COMMENT 'The time that the token was created, as a Unix timestamp.',
+  `changed` int(11) NOT NULL DEFAULT '0' COMMENT 'The last time the token was edited, as a Unix timestamp.',
+  `services` text COMMENT 'An array of services that the user allowed the consumer to access.',
+  `authorized` tinyint(4) NOT NULL DEFAULT '0' COMMENT 'In case its a request token, it checks if the user already authorized the consumer to get an access token.',
+  PRIMARY KEY (`token_key`),
+  UNIQUE KEY `tid` (`tid`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='Additional data for OAuth tokens provided by this site.';
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `oauth_common_token`
+--
+
+CREATE TABLE `oauth_common_token` (
+  `tid` int(11) NOT NULL AUTO_INCREMENT COMMENT 'Primary ID field for the table. Not used for anything except internal lookups.',
+  `csid` int(10) unsigned NOT NULL DEFAULT '0' COMMENT 'The oauth_common_consumer.csid this token is related to.',
+  `key_hash` char(40) NOT NULL COMMENT 'SHA1-hash of token_key.',
+  `token_key` text NOT NULL COMMENT 'Token key.',
+  `secret` text NOT NULL COMMENT 'Token secret.',
+  `expires` int(11) NOT NULL DEFAULT '0' COMMENT 'The expiry time for the token, as a Unix timestamp.',
+  `type` tinyint(4) NOT NULL DEFAULT '1' COMMENT 'Token type: request or access.',
+  `uid` int(10) unsigned NOT NULL DEFAULT '0' COMMENT 'User ID from user.uid.',
+  PRIMARY KEY (`tid`),
+  KEY `key_hash` (`key_hash`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='Tokens stored on behalf of providers or consumers for...' AUTO_INCREMENT=1 ;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `picture_mapping`
+--
+
+CREATE TABLE `picture_mapping` (
+  `id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'The internal identifier for this mapping',
+  `machine_name` varchar(255) NOT NULL COMMENT 'The machine name of the mapping',
+  `breakpoint_group` varchar(255) NOT NULL COMMENT 'The group this mapping belongs to',
+  `mapping` blob NOT NULL COMMENT 'The mappings linked to the breakpoints group',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='Responsible images and styles mappings to breakpoints' AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -1195,6 +1855,38 @@ CREATE TABLE `shortcut_set_users` (
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `simplemeta`
+--
+
+CREATE TABLE `simplemeta` (
+  `sid` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT 'The primary identifier for a Simplemeta data',
+  `path` varchar(255) NOT NULL COMMENT 'Primary Key: the Drupal path this entry describes',
+  `data` longblob NOT NULL COMMENT 'serialized array of meta data',
+  `language` varchar(12) NOT NULL DEFAULT '' COMMENT 'The language this Simplemeta data is for; blank means all languages',
+  `fit` int(11) NOT NULL DEFAULT '0' COMMENT 'A numeric representation of how specific the path is.',
+  PRIMARY KEY (`sid`),
+  UNIQUE KEY `path_language` (`path`,`language`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `stylizer`
+--
+
+CREATE TABLE `stylizer` (
+  `sid` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(255) DEFAULT NULL COMMENT 'Unique ID for this style. Used to identify it programmatically.',
+  `admin_title` varchar(255) DEFAULT NULL COMMENT 'Human readable title for this style.',
+  `admin_description` longtext COMMENT 'Administrative description of this style.',
+  `settings` longtext COMMENT 'A serialized array of settings specific to the style base that describes this plugin.',
+  PRIMARY KEY (`sid`),
+  UNIQUE KEY `name` (`name`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='Customized stylizer styles created by administrative users.' AUTO_INCREMENT=1 ;
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `system`
 --
 
@@ -1277,7 +1969,70 @@ CREATE TABLE `taxonomy_vocabulary` (
   PRIMARY KEY (`vid`),
   UNIQUE KEY `machine_name` (`machine_name`),
   KEY `list` (`weight`,`name`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COMMENT='Stores vocabulary information.' AUTO_INCREMENT=2 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COMMENT='Stores vocabulary information.' AUTO_INCREMENT=3 ;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `twitter`
+--
+
+CREATE TABLE `twitter` (
+  `twitter_id` decimal(20,0) unsigned NOT NULL DEFAULT '0' COMMENT 'Unique identifier for each twitter post.',
+  `screen_name` varchar(255) NOT NULL DEFAULT '' COMMENT 'Screen Name of the twitter_account user.',
+  `created_at` varchar(64) NOT NULL DEFAULT '' COMMENT 'Date and time the twitter post was created.',
+  `created_time` int(11) NOT NULL COMMENT 'A duplicate of twitter.created_at in UNIX timestamp format.',
+  `text` varchar(255) DEFAULT NULL COMMENT 'The text of the twitter post.',
+  `source` varchar(255) DEFAULT NULL COMMENT 'The application that created the twitter post.',
+  `in_reply_to_status_id` decimal(20,0) unsigned DEFAULT NULL COMMENT 'Unique identifier of a status this twitter post was replying to.',
+  `in_reply_to_user_id` decimal(20,0) unsigned DEFAULT NULL COMMENT 'Unique identifier for the twitter_account this post was replying to.',
+  `in_reply_to_screen_name` varchar(255) DEFAULT NULL COMMENT 'Screen name of the twitter user this post was replying to.',
+  `truncated` int(10) unsigned NOT NULL DEFAULT '0' COMMENT 'Boolean flag indicating whether the twitter status was cut off to fit in the 140 character limit.',
+  PRIMARY KEY (`twitter_id`),
+  KEY `screen_name` (`screen_name`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='Stores individual Twitter posts.';
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `twitter_account`
+--
+
+CREATE TABLE `twitter_account` (
+  `twitter_uid` decimal(20,0) unsigned NOT NULL DEFAULT '0' COMMENT 'The unique identifier of the twitter_account.',
+  `host` varchar(255) DEFAULT NULL COMMENT 'The host for this account can be a laconi.ca instance',
+  `screen_name` varchar(255) DEFAULT NULL COMMENT 'The unique login name of the twitter_account user.',
+  `oauth_token` varchar(64) DEFAULT NULL COMMENT 'The token_key for oauth-based access.',
+  `oauth_token_secret` varchar(64) DEFAULT NULL COMMENT 'The token_secret for oauth-based access.',
+  `name` varchar(64) NOT NULL DEFAULT '' COMMENT 'The full name of the twitter_account user.',
+  `description` varchar(255) DEFAULT NULL COMMENT 'The description/biography associated with the twitter_account.',
+  `location` varchar(255) DEFAULT NULL COMMENT 'The location of the twitter_account’s owner.',
+  `followers_count` int(11) NOT NULL DEFAULT '0' COMMENT 'The number of users following this twitter_account.',
+  `friends_count` int(11) NOT NULL DEFAULT '0' COMMENT 'The number of users this twitter_account is following.',
+  `statuses_count` int(11) NOT NULL DEFAULT '0' COMMENT 'The total number of status updates performed by a user, excluding direct messages sent.',
+  `favourites_count` int(11) NOT NULL DEFAULT '0' COMMENT 'The  number of statuses a user has marked as favorite.',
+  `url` varchar(255) DEFAULT NULL COMMENT 'The url of the twitter_account’s home page.',
+  `profile_image_url` varchar(255) DEFAULT NULL COMMENT 'The url of the twitter_account’s profile image.',
+  `protected` int(10) unsigned NOT NULL DEFAULT '0' COMMENT 'Boolean flag indicating whether the twitter_account’s posts are publicly accessible.',
+  `profile_background_color` varchar(6) NOT NULL DEFAULT '' COMMENT 'hex RGB value for a user’s background color',
+  `profile_text_color` varchar(6) NOT NULL DEFAULT '' COMMENT 'hex RGB value for a user’s text color',
+  `profile_link_color` varchar(6) NOT NULL DEFAULT '' COMMENT 'hex RGB value for a user’s link color',
+  `profile_sidebar_fill_color` varchar(6) NOT NULL DEFAULT '' COMMENT 'hex RGB value for a user’s sidebar color',
+  `profile_sidebar_border_color` varchar(6) NOT NULL DEFAULT '' COMMENT 'hex RGB value for a user’s border color',
+  `profile_background_image_url` varchar(255) DEFAULT NULL COMMENT 'The url of the twitter_account’s profile image.',
+  `profile_background_tile` int(10) unsigned NOT NULL DEFAULT '1' COMMENT 'Boolean indicating if a user’s background is tiled.',
+  `verified` int(10) unsigned NOT NULL DEFAULT '1' COMMENT 'Indicates if a user is verified.',
+  `created_at` varchar(64) NOT NULL DEFAULT '' COMMENT 'Date and time the twitter_account was created.',
+  `created_time` int(11) NOT NULL COMMENT 'A duplicate of twitter_account.created_at in UNIX timestamp format.',
+  `utc_offset` int(11) NOT NULL COMMENT 'A duplicate of twitter_account.created_at in UNIX timestamp format.',
+  `import` int(10) unsigned NOT NULL DEFAULT '0' COMMENT 'Boolean flag indicating whether the twitter_user’s posts should be pulled in by the site.',
+  `mentions` int(10) unsigned NOT NULL DEFAULT '0' COMMENT 'Boolean flag indicating whether the twitter_user’s mentions should be pulled in by the site.',
+  `last_refresh` int(11) NOT NULL DEFAULT '0' COMMENT 'A UNIX timestamp marking the date Twitter statuses were last fetched on.',
+  `is_global` int(10) unsigned NOT NULL DEFAULT '0' COMMENT 'Boolean flag indicating if this account is available for global use.',
+  `uid` int(10) unsigned NOT NULL DEFAULT '0' COMMENT 'The uid of the user who added this Twitter account.',
+  PRIMARY KEY (`twitter_uid`),
+  KEY `screen_name` (`screen_name`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='Stores information on specific Twitter user accounts.';
 
 -- --------------------------------------------------------
 
@@ -1354,6 +2109,41 @@ CREATE TABLE `variable` (
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `views_display`
+--
+
+CREATE TABLE `views_display` (
+  `vid` int(10) unsigned NOT NULL DEFAULT '0' COMMENT 'The view this display is attached to.',
+  `id` varchar(64) NOT NULL DEFAULT '' COMMENT 'An identifier for this display; usually generated from the display_plugin, so should be something like page or page_1 or block_2, etc.',
+  `display_title` varchar(64) NOT NULL DEFAULT '' COMMENT 'The title of the display, viewable by the administrator.',
+  `display_plugin` varchar(64) NOT NULL DEFAULT '' COMMENT 'The type of the display. Usually page, block or embed, but is pluggable so may be other things.',
+  `position` int(11) DEFAULT '0' COMMENT 'The order in which this display is loaded.',
+  `display_options` longtext COMMENT 'A serialized array of options for this display; it contains options that are generally only pertinent to that display plugin type.',
+  PRIMARY KEY (`vid`,`id`),
+  KEY `vid` (`vid`,`position`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='Stores information about each display attached to a view.';
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `views_view`
+--
+
+CREATE TABLE `views_view` (
+  `vid` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT 'The view ID of the field, defined by the database.',
+  `name` varchar(128) NOT NULL DEFAULT '' COMMENT 'The unique name of the view. This is the primary field views are loaded from, and is used so that views may be internal and not necessarily in the database. May only be alphanumeric characters plus underscores.',
+  `description` varchar(255) DEFAULT '' COMMENT 'A description of the view for the admin interface.',
+  `tag` varchar(255) DEFAULT '' COMMENT 'A tag used to group/sort views in the admin interface',
+  `base_table` varchar(64) NOT NULL DEFAULT '' COMMENT 'What table this view is based on, such as node, user, comment, or term.',
+  `human_name` varchar(255) DEFAULT '' COMMENT 'A human readable name used to be displayed in the admin interface',
+  `core` int(11) DEFAULT '0' COMMENT 'Stores the drupal core version of the view.',
+  PRIMARY KEY (`vid`),
+  UNIQUE KEY `name` (`name`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='Stores the general data for a view.' AUTO_INCREMENT=1 ;
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `watchdog`
 --
 
@@ -1373,7 +2163,34 @@ CREATE TABLE `watchdog` (
   KEY `type` (`type`),
   KEY `uid` (`uid`),
   KEY `severity` (`severity`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COMMENT='Table that contains logs of all system events.' AUTO_INCREMENT=49 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COMMENT='Table that contains logs of all system events.' AUTO_INCREMENT=199 ;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `wysiwyg`
+--
+
+CREATE TABLE `wysiwyg` (
+  `format` varchar(255) NOT NULL COMMENT 'The filter_format.format of the text format.',
+  `editor` varchar(128) NOT NULL DEFAULT '' COMMENT 'Internal name of the editor attached to the text format.',
+  `settings` text COMMENT 'Configuration settings for the editor.',
+  PRIMARY KEY (`format`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='Stores Wysiwyg profiles.';
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `wysiwyg_user`
+--
+
+CREATE TABLE `wysiwyg_user` (
+  `uid` int(10) unsigned NOT NULL DEFAULT '0' COMMENT 'The users.uid of the user.',
+  `format` varchar(255) DEFAULT NULL COMMENT 'The filter_format.format of the text format.',
+  `status` tinyint(3) unsigned NOT NULL DEFAULT '0' COMMENT 'Boolean indicating whether the format is enabled by default.',
+  KEY `uid` (`uid`),
+  KEY `format` (`format`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='Stores user preferences for wysiwyg profiles.';
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
