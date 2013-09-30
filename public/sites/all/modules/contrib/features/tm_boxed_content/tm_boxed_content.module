@@ -1,0 +1,7 @@
+<?php
+/**
+ * @file
+ * Code for the TM: Boxed Content feature.
+ */
+
+include_once 'tm_boxed_content.features.inc';

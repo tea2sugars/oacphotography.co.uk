@@ -1,0 +1,7 @@
+<?php
+/**
+ * @file
+ * Code for the TM: Media feature.
+ */
+
+include_once 'tm_media.features.inc';

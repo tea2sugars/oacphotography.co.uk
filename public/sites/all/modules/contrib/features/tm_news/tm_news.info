@@ -1,0 +1,16 @@
+name = TM: News
+core = 7.x
+package = Tante Marie
+version = 7.x-1.0
+project = tm_news
+dependencies[] = blog
+dependencies[] = ctools
+dependencies[] = features
+dependencies[] = strongarm
+dependencies[] = text
+dependencies[] = the_courses
+features[ctools][] = strongarm:strongarm:1
+features[features_api][] = api:2
+features[field_instance][] = node-blog-body
+features[variable][] = pathauto_blog_pattern
+features[variable][] = pathauto_node_blog_pattern

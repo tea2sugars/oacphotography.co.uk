@@ -1,0 +1,13 @@
+name = TM: Search
+core = 7.x
+package = Tante Marie
+version = 7.x-1.0
+project = tm_search
+dependencies[] = entity
+dependencies[] = search_api
+dependencies[] = search_api_db
+dependencies[] = search_api_page
+features[features_api][] = api:2
+features[search_api_index][] = default_node_index
+features[search_api_page][] = search
+features[search_api_server][] = database_service
