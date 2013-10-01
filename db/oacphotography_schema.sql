@@ -1,24 +1,21 @@
-/*
- Navicat MySQL Data Transfer
+-- phpMyAdmin SQL Dump
+-- version 2.6.4-pl3
+-- http://www.phpmyadmin.net
+-- 
+-- Host: db494553464.db.1and1.com
+-- Generation Time: Oct 01, 2013 at 01:47 PM
+-- Server version: 5.1.71
+-- PHP Version: 5.3.3-7+squeeze17
+-- 
+-- Database: `db494553464`
+-- 
 
- Source Server         : Creativitea Master
- Source Server Version : 50169
- Source Host           : 109.239.85.74
- Source Database       : oacphotography
+-- --------------------------------------------------------
 
- Target Server Version : 50169
- File Encoding         : utf-8
+-- 
+-- Table structure for table `wp_photo_commentmeta`
+-- 
 
- Date: 09/27/2013 10:49:52 AM
-*/
-
-SET NAMES utf8;
-SET FOREIGN_KEY_CHECKS = 0;
-
--- ----------------------------
---  Table structure for `wp_photo_commentmeta`
--- ----------------------------
-DROP TABLE IF EXISTS `wp_photo_commentmeta`;
 CREATE TABLE `wp_photo_commentmeta` (
   `meta_id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
   `comment_id` bigint(20) unsigned NOT NULL DEFAULT '0',
@@ -27,12 +24,14 @@ CREATE TABLE `wp_photo_commentmeta` (
   PRIMARY KEY (`meta_id`),
   KEY `comment_id` (`comment_id`),
   KEY `meta_key` (`meta_key`)
-) ENGINE=MyISAM AUTO_INCREMENT=82 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=82 DEFAULT CHARSET=utf8 AUTO_INCREMENT=82 ;
 
--- ----------------------------
---  Table structure for `wp_photo_comments`
--- ----------------------------
-DROP TABLE IF EXISTS `wp_photo_comments`;
+-- --------------------------------------------------------
+
+-- 
+-- Table structure for table `wp_photo_comments`
+-- 
+
 CREATE TABLE `wp_photo_comments` (
   `comment_ID` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
   `comment_post_ID` bigint(20) unsigned NOT NULL DEFAULT '0',
@@ -54,12 +53,14 @@ CREATE TABLE `wp_photo_comments` (
   KEY `comment_approved_date_gmt` (`comment_approved`,`comment_date_gmt`),
   KEY `comment_date_gmt` (`comment_date_gmt`),
   KEY `comment_parent` (`comment_parent`)
-) ENGINE=MyISAM AUTO_INCREMENT=571 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=571 DEFAULT CHARSET=utf8 AUTO_INCREMENT=571 ;
 
--- ----------------------------
---  Table structure for `wp_photo_links`
--- ----------------------------
-DROP TABLE IF EXISTS `wp_photo_links`;
+-- --------------------------------------------------------
+
+-- 
+-- Table structure for table `wp_photo_links`
+-- 
+
 CREATE TABLE `wp_photo_links` (
   `link_id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
   `link_url` varchar(255) NOT NULL DEFAULT '',
@@ -76,12 +77,14 @@ CREATE TABLE `wp_photo_links` (
   `link_rss` varchar(255) NOT NULL DEFAULT '',
   PRIMARY KEY (`link_id`),
   KEY `link_visible` (`link_visible`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
--- ----------------------------
---  Table structure for `wp_photo_ngg_album`
--- ----------------------------
-DROP TABLE IF EXISTS `wp_photo_ngg_album`;
+-- --------------------------------------------------------
+
+-- 
+-- Table structure for table `wp_photo_ngg_album`
+-- 
+
 CREATE TABLE `wp_photo_ngg_album` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT,
   `name` varchar(255) NOT NULL,
@@ -91,12 +94,14 @@ CREATE TABLE `wp_photo_ngg_album` (
   `sortorder` longtext NOT NULL,
   `pageid` bigint(20) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
--- ----------------------------
---  Table structure for `wp_photo_ngg_gallery`
--- ----------------------------
-DROP TABLE IF EXISTS `wp_photo_ngg_gallery`;
+-- --------------------------------------------------------
+
+-- 
+-- Table structure for table `wp_photo_ngg_gallery`
+-- 
+
 CREATE TABLE `wp_photo_ngg_gallery` (
   `gid` bigint(20) NOT NULL AUTO_INCREMENT,
   `name` varchar(255) NOT NULL,
@@ -108,12 +113,14 @@ CREATE TABLE `wp_photo_ngg_gallery` (
   `previewpic` bigint(20) NOT NULL DEFAULT '0',
   `author` bigint(20) NOT NULL DEFAULT '0',
   PRIMARY KEY (`gid`)
-) ENGINE=MyISAM AUTO_INCREMENT=12 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=12 DEFAULT CHARSET=utf8 AUTO_INCREMENT=12 ;
 
--- ----------------------------
---  Table structure for `wp_photo_ngg_pictures`
--- ----------------------------
-DROP TABLE IF EXISTS `wp_photo_ngg_pictures`;
+-- --------------------------------------------------------
+
+-- 
+-- Table structure for table `wp_photo_ngg_pictures`
+-- 
+
 CREATE TABLE `wp_photo_ngg_pictures` (
   `pid` bigint(20) NOT NULL AUTO_INCREMENT,
   `image_slug` varchar(255) NOT NULL,
@@ -128,12 +135,14 @@ CREATE TABLE `wp_photo_ngg_pictures` (
   `meta_data` longtext,
   PRIMARY KEY (`pid`),
   KEY `post_id` (`post_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=609 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=609 DEFAULT CHARSET=utf8 AUTO_INCREMENT=609 ;
 
--- ----------------------------
---  Table structure for `wp_photo_option_tree`
--- ----------------------------
-DROP TABLE IF EXISTS `wp_photo_option_tree`;
+-- --------------------------------------------------------
+
+-- 
+-- Table structure for table `wp_photo_option_tree`
+-- 
+
 CREATE TABLE `wp_photo_option_tree` (
   `id` mediumint(9) NOT NULL AUTO_INCREMENT,
   `item_id` varchar(50) NOT NULL,
@@ -144,12 +153,14 @@ CREATE TABLE `wp_photo_option_tree` (
   `item_sort` mediumint(9) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`),
   UNIQUE KEY `item_id` (`item_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=22 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=22 DEFAULT CHARSET=utf8 AUTO_INCREMENT=22 ;
 
--- ----------------------------
---  Table structure for `wp_photo_options`
--- ----------------------------
-DROP TABLE IF EXISTS `wp_photo_options`;
+-- --------------------------------------------------------
+
+-- 
+-- Table structure for table `wp_photo_options`
+-- 
+
 CREATE TABLE `wp_photo_options` (
   `option_id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
   `option_name` varchar(64) NOT NULL DEFAULT '',
@@ -157,12 +168,14 @@ CREATE TABLE `wp_photo_options` (
   `autoload` varchar(20) NOT NULL DEFAULT 'yes',
   PRIMARY KEY (`option_id`),
   UNIQUE KEY `option_name` (`option_name`)
-) ENGINE=MyISAM AUTO_INCREMENT=3510 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=3548 DEFAULT CHARSET=utf8 AUTO_INCREMENT=3548 ;
 
--- ----------------------------
---  Table structure for `wp_photo_postmeta`
--- ----------------------------
-DROP TABLE IF EXISTS `wp_photo_postmeta`;
+-- --------------------------------------------------------
+
+-- 
+-- Table structure for table `wp_photo_postmeta`
+-- 
+
 CREATE TABLE `wp_photo_postmeta` (
   `meta_id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
   `post_id` bigint(20) unsigned NOT NULL DEFAULT '0',
@@ -171,12 +184,14 @@ CREATE TABLE `wp_photo_postmeta` (
   PRIMARY KEY (`meta_id`),
   KEY `post_id` (`post_id`),
   KEY `meta_key` (`meta_key`)
-) ENGINE=MyISAM AUTO_INCREMENT=2693 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=2693 DEFAULT CHARSET=utf8 AUTO_INCREMENT=2693 ;
 
--- ----------------------------
---  Table structure for `wp_photo_posts`
--- ----------------------------
-DROP TABLE IF EXISTS `wp_photo_posts`;
+-- --------------------------------------------------------
+
+-- 
+-- Table structure for table `wp_photo_posts`
+-- 
+
 CREATE TABLE `wp_photo_posts` (
   `ID` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
   `post_author` bigint(20) unsigned NOT NULL DEFAULT '0',
@@ -206,12 +221,14 @@ CREATE TABLE `wp_photo_posts` (
   KEY `type_status_date` (`post_type`,`post_status`,`post_date`,`ID`),
   KEY `post_parent` (`post_parent`),
   KEY `post_author` (`post_author`)
-) ENGINE=MyISAM AUTO_INCREMENT=789 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=791 DEFAULT CHARSET=utf8 AUTO_INCREMENT=791 ;
 
--- ----------------------------
---  Table structure for `wp_photo_term_relationships`
--- ----------------------------
-DROP TABLE IF EXISTS `wp_photo_term_relationships`;
+-- --------------------------------------------------------
+
+-- 
+-- Table structure for table `wp_photo_term_relationships`
+-- 
+
 CREATE TABLE `wp_photo_term_relationships` (
   `object_id` bigint(20) unsigned NOT NULL DEFAULT '0',
   `term_taxonomy_id` bigint(20) unsigned NOT NULL DEFAULT '0',
@@ -220,10 +237,12 @@ CREATE TABLE `wp_photo_term_relationships` (
   KEY `term_taxonomy_id` (`term_taxonomy_id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
--- ----------------------------
---  Table structure for `wp_photo_term_taxonomy`
--- ----------------------------
-DROP TABLE IF EXISTS `wp_photo_term_taxonomy`;
+-- --------------------------------------------------------
+
+-- 
+-- Table structure for table `wp_photo_term_taxonomy`
+-- 
+
 CREATE TABLE `wp_photo_term_taxonomy` (
   `term_taxonomy_id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
   `term_id` bigint(20) unsigned NOT NULL DEFAULT '0',
@@ -234,12 +253,14 @@ CREATE TABLE `wp_photo_term_taxonomy` (
   PRIMARY KEY (`term_taxonomy_id`),
   UNIQUE KEY `term_id_taxonomy` (`term_id`,`taxonomy`),
   KEY `taxonomy` (`taxonomy`)
-) ENGINE=MyISAM AUTO_INCREMENT=209 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=209 DEFAULT CHARSET=utf8 AUTO_INCREMENT=209 ;
 
--- ----------------------------
---  Table structure for `wp_photo_terms`
--- ----------------------------
-DROP TABLE IF EXISTS `wp_photo_terms`;
+-- --------------------------------------------------------
+
+-- 
+-- Table structure for table `wp_photo_terms`
+-- 
+
 CREATE TABLE `wp_photo_terms` (
   `term_id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
   `name` varchar(200) NOT NULL DEFAULT '',
@@ -248,12 +269,14 @@ CREATE TABLE `wp_photo_terms` (
   PRIMARY KEY (`term_id`),
   UNIQUE KEY `slug` (`slug`),
   KEY `name` (`name`)
-) ENGINE=MyISAM AUTO_INCREMENT=209 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=209 DEFAULT CHARSET=utf8 AUTO_INCREMENT=209 ;
 
--- ----------------------------
---  Table structure for `wp_photo_usermeta`
--- ----------------------------
-DROP TABLE IF EXISTS `wp_photo_usermeta`;
+-- --------------------------------------------------------
+
+-- 
+-- Table structure for table `wp_photo_usermeta`
+-- 
+
 CREATE TABLE `wp_photo_usermeta` (
   `umeta_id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
   `user_id` bigint(20) unsigned NOT NULL DEFAULT '0',
@@ -262,12 +285,14 @@ CREATE TABLE `wp_photo_usermeta` (
   PRIMARY KEY (`umeta_id`),
   KEY `user_id` (`user_id`),
   KEY `meta_key` (`meta_key`)
-) ENGINE=MyISAM AUTO_INCREMENT=47 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=47 DEFAULT CHARSET=utf8 AUTO_INCREMENT=47 ;
 
--- ----------------------------
---  Table structure for `wp_photo_users`
--- ----------------------------
-DROP TABLE IF EXISTS `wp_photo_users`;
+-- --------------------------------------------------------
+
+-- 
+-- Table structure for table `wp_photo_users`
+-- 
+
 CREATE TABLE `wp_photo_users` (
   `ID` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
   `user_login` varchar(60) NOT NULL DEFAULT '',
@@ -282,12 +307,14 @@ CREATE TABLE `wp_photo_users` (
   PRIMARY KEY (`ID`),
   KEY `user_login_key` (`user_login`),
   KEY `user_nicename` (`user_nicename`)
-) ENGINE=MyISAM AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 AUTO_INCREMENT=3 ;
 
--- ----------------------------
---  Table structure for `wp_photo_wp_rp_tags`
--- ----------------------------
-DROP TABLE IF EXISTS `wp_photo_wp_rp_tags`;
+-- --------------------------------------------------------
+
+-- 
+-- Table structure for table `wp_photo_wp_rp_tags`
+-- 
+
 CREATE TABLE `wp_photo_wp_rp_tags` (
   `post_id` mediumint(9) DEFAULT NULL,
   `post_date` datetime NOT NULL,
@@ -296,5 +323,3 @@ CREATE TABLE `wp_photo_wp_rp_tags` (
   KEY `post_id` (`post_id`),
   KEY `label` (`label`)
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
-
-SET FOREIGN_KEY_CHECKS = 1;
