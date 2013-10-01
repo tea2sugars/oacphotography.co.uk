@@ -12,7 +12,7 @@ html, body, div, span, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pr
 	font-weight:inherit;
 	font-style:inherit;
 	font-size:100%;
-	font-family:'blanchcaps_inline';
+	font-family: Helvetica, Arial;
 	vertical-align:baseline;
 	margin:0;
 	padding:0;
@@ -1017,9 +1017,13 @@ background: none repeat scroll 0 0 #FFFFFF !important;
 }
 .laugh {
 	color:#cbe7f5;
+	font-family: 'blanchcaps_inline';
+
 }
 .laugh1 {
 	color:#cc2e3b;
+	font-family: 'blanchcaps_inline';
+
 }
 .owen {
 	text-align:left;
