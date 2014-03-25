@@ -95,10 +95,19 @@
     transform: 			translateY(-100%); 
 }
 
+/*hompeage panels*/
+.block-wp-blog-latest-posts-block-1 {
+	border-top:2px solid black;
+}
+.block-hp-slideshow-block-1, .block-hp-slideshow-block-2, .block-hp-slideshow-block-3, .block-hp-slideshow-block-4, .block-hp-slideshow-block-5, .block-hp-slideshow-block-6 {
+	border-top:2px solid black;
+	height:660px;
+	
+}
+
 /*FAQ text alignment*/
 #block-views-hp-slideshow-block-1 {
 	background: url(../images/faq.png) left center no-repeat;
-	height:600px;
 }
 
 #block-views-hp-slideshow-block-1 .flexslider {

@@ -39,25 +39,37 @@ h2.block-title {
 
 /*branding*/
 .branding-data {
-	background: url(../logo_bg.png) center top no-repeat;
 	text-align: center;
-	height:130px;
-	z-index: 1000;
-	margin-top:10px;
-	padding-top: 20px;
-	width:200px;
-	left:10px;
-	position: absolute;
+
 }
 .logo-img {
+	background: url(../logo_bg.png) center top no-repeat;
 	margin:0 auto;
-	width:142px;
 	float:none;
+	width:200px;
+	height:130px;
+	z-index: 100;
+	position: absolute;
+
 }
+
+.logo-img img {
+	width:142px;
+	margin:20px 0 0 0;
+
+}
+
+.flexslider .slides img {
+	width:auto;
+	margin:0 auto;
+}
+
+
+.block-3 {margin-left:100px;}
 
 /*Homepage Panels*/
 #block-views-hp-slideshow-block {
-margin-top:-60px;
+margin-top:0;
 }
 
 .flexslider {
@@ -69,8 +81,8 @@ margin-top:-60px;
 }
 
 .flex-direction-nav a:before {display: none;}
-.flex-direction-nav a.flex-prev {background: url(../images/left_arrow.png) center center no-repeat; height:100px; width:100px;}
-.flex-direction-nav a.flex-next {background: url(../images/right_arrow.png) center center no-repeat; height:100px; width:100px;}
+.flex-direction-nav a.flex-prev {background: url(../images/left_arrow.png) center center no-repeat; background-size: cover; height:40px; width:40px;}
+.flex-direction-nav a.flex-next {background: url(../images/right_arrow.png) center center no-repeat; background-size: cover; height:40px; width:40px;}
 
 .flexslider .flex-direction-nav a,
 .flexslider .flex-direction-nav a {

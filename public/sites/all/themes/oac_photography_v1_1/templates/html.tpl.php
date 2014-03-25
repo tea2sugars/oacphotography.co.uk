@@ -5,7 +5,7 @@
   <title><?php print $head_title; ?></title>  
   <?php print $styles; ?>
   <?php print $scripts; ?>
-  <link href="http://localhost:8888/oac_drupal/public/sites/all/themes/oac_photography_v1_1/css/fonts.css" media="screen" rel="stylesheet" type="text/css" />
+  <link href="http://oac.theteapot.me.uk/sites/all/themes/oac_photography_v1_1/css/fonts.css" media="screen" rel="stylesheet" type="text/css" />
   <!--[if lt IE 9]><script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
 </head>
 <body<?php print $attributes;?>>

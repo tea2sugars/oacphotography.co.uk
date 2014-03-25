@@ -47,3 +47,6 @@
 	
 }
 
+.flex-direction-nav a.flex-prev {background: url(../images/left_arrow.png) center center no-repeat; background-size: auto; height:100px; width:100px;}
+.flex-direction-nav a.flex-next {background: url(../images/right_arrow.png) center center no-repeat; background-size: auto; height:100px; width:100px;}
+
