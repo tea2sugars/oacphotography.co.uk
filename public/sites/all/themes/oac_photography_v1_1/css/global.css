@@ -2,11 +2,11 @@
 /* This also can include ANY global CSS that applies site-wide. Unless overwritten by a more specific style rule, CSS declarations in global.css will apply site-wide. */
 body, p 	{
 	font-size: 14px;
-	line-height: 1.6;
+	line-height: 24px;
 }
 
 p {
-	margin-bottom:14px;
+	margin-bottom:12px;
 
 }
 
@@ -30,10 +30,11 @@ h1 span.pink{
 h2.block-title {
 	color: 			#000000;
 	font-family: 	'blanchcaps_inline';
-	font-size: 		56px;
+	font-size: 		54px;
 	font-weight: 	normal;
 	margin: 		0;
 	text-align: 	center;
+	line-height: 	60px;
 
 }
 
@@ -72,6 +73,8 @@ h2.block-title {
 margin-top:0;
 }
 
+/*Slideshows*/
+
 .flexslider {
 	background: 	none;
 	border: 		none;
@@ -89,7 +92,7 @@ margin-top:0;
 display: block; /* I added this line */
 }
 
-
+/*Footer*/
 
 footer {
 	text-align: 	center;
