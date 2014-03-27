@@ -121,7 +121,19 @@
 }
 #block-views-hp-slideshow-block-1 .flexslider p {width:460px;}
 
-#block-views-hp-slideshow-block-1 .flex-direction-nav .flex-next { right: 0 !important; opacity: 1 !important; }
-#block-views-hp-slideshow-block-1 .flex-direction-nav .flex-prev { left: 0 !important; opacity: 1 !important; margin-left:-360px;}
+#block-views-hp-slideshow-block-1 .flex-direction-nav .flex-next { right: 0 !important; opacity: 0 !important; }
+#block-views-hp-slideshow-block-1 .flex-direction-nav .flex-prev { left: 0 !important; opacity: 0 !important; margin-left:-360px;}
 
+/*How we work*/
+
+.block-hp-slideshow-block-4		{background: url(../images/howwework.png) left center no-repeat;}
+.block-hp-slideshow-block-4 p {width:520px; margin-left:360px;}
+
+/*price*/
+.block-hp-slideshow-block-5 {background: url(../images/price.png) right center no-repeat;}
+.block-hp-slideshow-block-5 p {width:520px; margin-left:60px;}
+
+/*amigos*/
+.block-hp-slideshow-block-6 li .field-content {width: 580px; margin:auto;}
+.block-hp-slideshow-block-6 li h5	{text-align: center;}
 
