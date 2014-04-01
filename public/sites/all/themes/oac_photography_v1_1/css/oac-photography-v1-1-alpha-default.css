@@ -1,7 +1,12 @@
 /* This file will hold styles for all layouts using the alpha grid (i.e. not the mobile layout). */
 
 /*Mobile Hide Menu*/
-.top-menu, .bottom-menu {display: none;}
+.top-menu, .bottom-menu, #block-block-5  {display: none;}
+
+#block-block-2, #block-block-3 {
+	display:	inherit;
+	}
+
 
 /*Header */
 #section-header li a:link, #section-header li a:visited {

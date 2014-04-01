@@ -78,6 +78,23 @@ h5 {
 
 .block-3 {margin-left:100px;}
 
+/*Navigation remove for mobile*/
+#block-block-2, #block-block-3 {
+	display: 	none;
+}
+
+.responsive-menus {
+}
+.responsive-menus.responsified span.toggler {
+	width:			30px;
+	border: 		none;
+    border-radius: 	0;
+    box-shadow: 	none;
+    float:			right;
+}
+.responsive-menus-simple {
+	margin-top:30px;
+}
 /*Homepage Panels*/
 #block-views-hp-slideshow-block {
 margin-top:0;
@@ -88,7 +105,7 @@ margin-top:0;
 .flexslider {
 	background: 	none;
 	border: 		none;
-    border-radius: 	none;
+    border-radius: 	0;
     box-shadow: 	none;
     position: 		relative;
 }

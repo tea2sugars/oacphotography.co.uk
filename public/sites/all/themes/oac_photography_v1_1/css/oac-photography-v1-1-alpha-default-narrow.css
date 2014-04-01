@@ -5,7 +5,9 @@
  
  /*Menu*/
  
-.top-menu, .bottom-menu {display:inherit;}
+.top-menu, .bottom-menu {
+	display: 	none;
+}
 
 #section-header ul, #section-header ul ul {
 	margin: 0;
