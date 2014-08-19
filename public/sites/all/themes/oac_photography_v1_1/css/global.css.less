@@ -70,10 +70,7 @@ h5 {
 
 }
 
-.flexslider .slides img {
-	width:auto;
-	margin:0 auto;
-}
+
 
 
 .block-3 {margin-left:100px;}
@@ -108,16 +105,25 @@ margin-top:0;
     border-radius: 	0;
     box-shadow: 	none;
     position: 		relative;
+    .slides {
+	    img {
+		    width:		100%;
+		    height:		auto;
+			margin:		0 auto;
+	    }
+    }
+    .flex-direction-nav {
+	    a {
+		    display:	block;
+	    }
+    }
 }
+
 
 .flex-direction-nav a:before {display: none;}
 .flex-direction-nav a.flex-prev {background: url(../images/left_arrow.png) center center no-repeat; background-size: cover; height:40px; width:40px;}
 .flex-direction-nav a.flex-next {background: url(../images/right_arrow.png) center center no-repeat; background-size: cover; height:40px; width:40px;}
 
-.flexslider .flex-direction-nav a,
-.flexslider .flex-direction-nav a {
-display: block; /* I added this line */
-}
 
 /*Footer*/
 
@@ -172,24 +178,21 @@ footer {
 	width:			100%;	
 }
 
-/* Featured Blogs and Galleries */
+/* Featured Blogs and Galleries 
 #block-views-wp-blog-latest-posts-block-1 .block-inner, #block-views-wp-blog-latest-posts-block-3 .block-inner {
 	margin:			0 auto;
 	width:			700px;
-}
+}*/
 
 
 .blog-thumbnail, .gallery-thumbnail {
-	border:				3px solid white;
-	margin:				3px;
+	outline:			3px solid white;
 	width:				220px; 
 	height: 			150px;
 	float:				left;
 	position: 			relative;  
     overflow: 			hidden; 
-    -webkit-box-shadow: 1px 1px 1px 1px #eee;  
-    -moz-box-shadow: 	1px 1px 1px 1px #eee;  
-    box-shadow: 		1px 1px 1px 1px #eee; 
+    
 }
 
 .blog-thumbnail img, .gallery-thumbnail img {
@@ -200,7 +203,7 @@ footer {
     -o-transition: 		all 300ms ease-out;  
     -ms-transition: 	all 300ms ease-out;  
     transition: 		all 300ms ease-out;
-    }
+        }
 /*CAption control*/
 .blog-thumbnail .caption, .gallery-thumbnail .caption {
 	font-size: 			14px;
