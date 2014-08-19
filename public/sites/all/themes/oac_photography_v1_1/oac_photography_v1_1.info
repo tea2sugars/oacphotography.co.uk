@@ -74,7 +74,7 @@ settings[alpha_css][omega-branding.css] = 'omega-branding.css'
 settings[alpha_css][omega-menu.css] = 'omega-menu.css'
 settings[alpha_css][omega-forms.css] = 'omega-forms.css'
 settings[alpha_css][omega-visuals.css] = 'omega-visuals.css'
-settings[alpha_css][global.css] = 'global.css'
+settings[alpha_css][global.css.less] = 'global.css.ess'
 settings[alpha_debug_block_toggle] = '1'
 settings[alpha_debug_block_active] = '1'
 settings[alpha_debug_grid_toggle] = '1'
@@ -353,3 +353,11 @@ settings[alpha_region_footer_second_suffix] = ''
 settings[alpha_region_footer_second_weight] = '2'
 settings[alpha_region_footer_second_css] = ''
 version = '1.x'
+
+css[global.css.less][name] = 'OAC global style'
+css[global.css.less][description] = 'The base style for the OAC theme'
+css[global.css.less][options][weight] = '10'
+settings[alpha_css][global.css.less] = 'global.css.less'
+
+; Panels layouts. You can place multiple layouts under the "layouts" folder.
+plugins[panels][layouts] = panels/layouts
