@@ -134,7 +134,12 @@ footer {
 /* This file will hold styles for all layouts using the alpha grid (i.e. not the mobile layout). */
 
 /*Mobile Hide Menu*/
-.top-menu, .bottom-menu, #block-block-5  {display: none;}
+.top-menu, .bottom-menu, #block-block-5  {
+	display:none;
+		@media all and @breakpoint-normal-plus {
+			display: inherit;
+	}
+}
 
 #block-block-2, #block-block-3 {
 	display:	inherit;
@@ -275,6 +280,15 @@ footer {
 	}
 	h5	{
 		text-align: center;
+		}
+}
+
+.block-hp-slideshow-block-3 {
+	.views-field-field-press-blog-image {
+		img {
+			width:320px !important;
+			height:auto !important;
+		}
 		}
 }
 
