@@ -67,6 +67,7 @@ div.logo-img {
 	@media all and @breakpoint-normal-plus { 
 		position: 	absolute;
 		left:		10px;
+		top:		7px;
 		z-index: 	10;
 
 	}
@@ -92,21 +93,29 @@ div.logo-img {
 .block-3 {margin-left:100px;}
 
 /*Navigation remove for mobile*/
-#block-block-2, #block-block-3 {
-	display: 	none;
+.block-main-menu {
+	display: 	inherit;
+		@media all and @breakpoint-normal-plus {
+			display: none;
+		}
 }
 
+.responsive-menus.responsified .responsive-menus-simple {
+	border-radius: 0;
+	box-shadow: 	none;
+}
 
 .responsive-menus.responsified span.toggler {
-	width:			30px;
+	width:			100%;
 	border: 		none;
     border-radius: 	0;
     box-shadow: 	none;
-    float:			right;
 }
 .responsive-menus-simple {
 	margin-top:30px;
 }
+
+
 /*Homepage Panels*/
 #block-views-hp-slideshow-block {
 margin-top:0;
@@ -164,8 +173,13 @@ margin-top:0;
 /*Footer*/
 
 footer {
-	font-size: 12px;
-	text-align: 	center;
+	p {	
+		font-size: 		12px;
+		@media all and @breakpoint-normal-plus {
+			font-size: 		14px;
+		}
+		text-align: 	center;
+		}
 }
 
 /* This file will hold styles for all layouts using the alpha grid (i.e. not the mobile layout). */
