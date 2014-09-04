@@ -296,96 +296,52 @@ ul.nice-menu-down li.menuparent {
 
 /*Controls hover state*/
 
-.img-grid {
-	list-style: 		none;
-	margin-bottom:		40px;
-	min-height:			380px;
-	overflow: 			auto;
-	@media all and @breakpoint-normal-plus {
-		margin-bottom:		20px;
-		overflow: 			hidden;
-		position: 			relative;
-		min-height:			170px;  
-		height:				170px;
-	    width: 				220px;
-		}
-	@media all and @breakpoint-wide-plus {
-		height:				200px;
-	    width: 				280px;
-		}
-    &:hover {
-	    .caption {
-	    	@media all and @breakpoint-normal-plus {
-				-moz-transform: 	translateY(-137px);  
-			    -o-transform: 		translateY(-137px);  
-			    -webkit-transform: 	translateY(-137px);  
-			    transform: 			translateY(-137px); 
-			}
-	    	@media all and @breakpoint-wide-plus {
-				-moz-transform: 	translateY(-167px);  
-			    -o-transform: 		translateY(-167px);  
-			    -webkit-transform: 	translateY(-167px);  
-			    transform: 			translateY(-167px); 
-			}
-	    }
-    }
-		img {
-			margin-bottom: 	20px;
-				@media all and @breakpoint-normal-plus {
-					margin-bottom:		0;
-					position: 			absolute;  
-				    left: 				0;  
-				    -webkit-transition: all 300ms ease-out;  
-				    -moz-transition: 	all 300ms ease-out;  
-				    -o-transition: 		all 300ms ease-out;  
-				    -ms-transition: 	all 300ms ease-out;  
-				    transition: 		all 300ms ease-out;
-			    }
-		    }
-	    .caption {
-			font-size: 			12px;
-			line-height: 		18px;
-				@media all and @breakpoint-normal-plus {
-					background-color: 	rgba(44,109,212,0.8);
-					color: 				white;
-					height: 			150px;
-					left: 				0;
-					position: 			absolute;
-					padding: 			10px 10px 10px 10px;
-					-webkit-transition: all 400ms ease-out;
-					-moz-transition: 	all 400ms ease-out;
-					-o-transition: 		all 400ms ease-out;
-					-ms-transition: 	all 400ms ease-out;
-					transition: 		all 400ms ease-out;
-					text-align: 		center;
-					top: 				137px;
-					width: 				200px;
-					z-index: 			100;
-				}
-				@media all and @breakpoint-wide-plus {
-					font-size: 			14px;
-					height: 			170px;
-					padding: 			10px 10px 20px 10px;
-					top: 				167px;
-					width: 				260px;
-				}
-					h3 {
-						@media all and @breakpoint-normal-plus {
-							border-bottom: 	1px dotted white;
-							color: 			white;
-							font-size: 		14px;
-							letter-spacing: 1px;
-							margin-bottom: 	10px;
-							padding-bottom: 5px;
-							
-							}
-						@media all and @breakpoint-wide-plus {
-							font-size: 16px;
-							
-						}
-					}
-			}
+blog-thumbnail, .gallery-thumbnail {
+	outline:			3px solid white;
+	width:				220px; 
+	height: 			150px;
+	float:				left;
+	position: 			relative;  
+    overflow: 			hidden; 
+    
 }
+
+.blog-thumbnail img, .gallery-thumbnail img {
+	position: 			absolute;  
+    left: 				0;  
+    -webkit-transition: all 300ms ease-out;  
+    -moz-transition: 	all 300ms ease-out;  
+    -o-transition: 		all 300ms ease-out;  
+    -ms-transition: 	all 300ms ease-out;  
+    transition: 		all 300ms ease-out;
+        }
+/*CAption control*/
+.blog-thumbnail .caption, .gallery-thumbnail .caption {
+	font-size: 			14px;
+	line-height: 		18px;
+	background-color: 	rgba(255,255,255,0.8);  
+    position: 			absolute;  
+    color: 				#000;  
+    z-index: 			100;  
+    -webkit-transition: all 400ms ease-out;  
+    -moz-transition: 	all 400ms ease-out;  
+    -o-transition: 		all 400ms ease-out;  
+    -ms-transition: 	all 400ms ease-out;  
+    transition: 		all 400ms ease-out;  
+    left: 				0;  
+    top: 				150px; 
+    height:				100px;
+    width:				200px; 
+    padding:			30px 10px 20px 10px;
+
+}
+.blog-thumbnail:hover .caption, .gallery-thumbnail:hover .caption{
+	-moz-transform: 	translateY(-100%);  
+    -o-transform: 		translateY(-100%);  
+    -webkit-transform: 	translateY(-100%);  
+    transform: 			translateY(-100%); 
+}
+
 
 /*hompeage panels*/
 .block-wp-blog-latest-posts-block-1 {
