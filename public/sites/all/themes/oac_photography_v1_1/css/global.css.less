@@ -40,15 +40,15 @@ h1 {
 }
 
 h2.block-title {
-	color: 			#000000;
-	font-family: 	'blanchcaps_inline';
-	font-size: 		54px;
-	font-weight: 	normal;
-	margin: 		0;
-	text-align: 	center;
-	line-height: 	60px;
+			color: 			#000000;
+			font-family: 	'blanchcaps_inline';
+			font-size: 		54px;
+			font-weight: 	normal;
+			margin: 		0 0 20px 0;
+			text-align: 	center;
+			line-height: 	60px;
+		}
 
-}
 
 h5 {
 	font-family: helvetica, arial, sans-serif;
@@ -287,6 +287,7 @@ ul.nice-menu-down li.menuparent {
 	float:left;
 }
 
+
 /* Featured Blogs and Galleries 
 #block-views-wp-blog-latest-posts-block-1 .block-inner, #block-views-wp-blog-latest-posts-block-3 .block-inner {
 	margin:			0 auto;
@@ -296,7 +297,7 @@ ul.nice-menu-down li.menuparent {
 
 /*Controls hover state*/
 
-blog-thumbnail, .gallery-thumbnail {
+.blog-thumbnail, .gallery-thumbnail {
 	outline:			3px solid white;
 	width:				220px; 
 	height: 			150px;
@@ -344,32 +345,91 @@ blog-thumbnail, .gallery-thumbnail {
 
 
 /*hompeage panels*/
-.block-wp-blog-latest-posts-block-1 {
-	border-top:2px solid black;
-}
-.block-hp-slideshow-block-1, .block-hp-slideshow-block-2, .block-hp-slideshow-block-3, .block-hp-slideshow-block-4, .block-hp-slideshow-block-5, .block-hp-slideshow-block-6 {
-	border-top:2px solid black;
-	height:640px;
-	
-}
 
 .view-display-id-block_3 .view-content {height:200px;}
 
 .block-wp-blog-latest-posts-block-3 {height:258px;}
 
+.sub-section {
+	border-top: 	2px solid black;
+	height:			600px;
+	padding:		50px 0 50px 0;
+		
+}
+
+.gallery-section {
+	border-top: 	2px solid black;
+	overflow: visible;
+	min-height: 1500px;
+	@media all and @breakpoint-narrow-plus {
+		min-height: 500px;
+	}
+}
+
+.mobile-hide {
+	
+}
+
 /*FAQ text alignment*/
 #block-views-hp-slideshow-block-1 {
+@media all and @breakpoint-normal-plus {
 	background: url(../images/faq.png) left center no-repeat;
+	}
 }
 
 #block-views-hp-slideshow-block-1 .flexslider {
-	width:580px;
-	float:right;
+	
+	float:				right;
+	width:				100%;
+	margin-right: 		0;
+	
+	@media all and @breakpoint-narrow-plus {
+		
+	}
+	@media all and @breakpoint-normal-plus {
+		width:			460px;
+		margin-right: 	120px;
+	}
+	@media all and @breakpoint-wide-plus {
+		width:			630px;
+		margin-right: 	100px;
+	}
+	
+	p {
+		width:85%;
+		margin: 0 auto;
+		@media all and @breakpoint-narrow-plus {
+			width:522px;
+			
+		}
+		@media all and @breakpoint-normal-plus {
+			width:460px;
+		}
+		@media all and @breakpoint-wide-plus { 
+			width:612px;
+		}
+	}
 }
-#block-views-hp-slideshow-block-1 .flexslider p {width:460px;}
 
-#block-views-hp-slideshow-block-1 .flex-direction-nav .flex-next { right: 0 !important; opacity: 0 !important; }
-#block-views-hp-slideshow-block-1 .flex-direction-nav .flex-prev { left: 0 !important; opacity: 0 !important; margin-left:-360px;}
+
+#block-views-hp-slideshow-block-1 .flex-direction-nav .flex-next { 
+		right: 0 !important; 
+		@media all and @breakpoint-normal-plus { 
+			margin-right:-110px; 
+		} 
+		@media all and @breakpoint-wide-plus {
+			margin-right:-90px; 
+		}
+}
+#block-views-hp-slideshow-block-1 .flex-direction-nav .flex-prev {
+		left: 0 !important;
+		@media all and @breakpoint-normal-plus { 
+			margin-left:-350px;
+			}
+		@media all and @breakpoint-wide-plus { 
+			margin-left:-440px;
+			}
+}
 
 /*How we work*/
 
@@ -397,14 +457,6 @@ blog-thumbnail, .gallery-thumbnail {
 			height:	auto !important;
 		}
 		}
-}
-
-#zone-content {
-	.grid-16 {
-		.block-views {
-			min-height:700px;
-		}
-	}
 }
 
 #about-us-slide {
