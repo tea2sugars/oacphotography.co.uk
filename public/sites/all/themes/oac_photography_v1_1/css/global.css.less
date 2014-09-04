@@ -55,24 +55,22 @@ h5 {
 	
 
 /*branding*/
-.branding-data {
-	.logo-img {
-		background: url(../logo_bg.png) center top no-repeat;
-		margin:0 auto;
-		float:none;
-		width:200px;
-		height:130px;
-		z-index: 100;
-		position: absolute;
 
-}
+div.logo-img {
+	float: 		none;
+	margin: 	0px;
+	
+	text-align: center;
+	@media all and @breakpoint-normal-plus { 
+		position: 	absolute;
+		left:		10px;
+		z-index: 	10;
 
-.logo-img img {
-	width:142px;
-	margin:20px 0 0 0;
+	}
 
-}
-
+	@media all and @breakpoint-wide-plus { 
+		left:		40px;
+	}
 }
 
 
@@ -86,8 +84,7 @@ h5 {
 	display: 	none;
 }
 
-.responsive-menus {
-}
+
 .responsive-menus.responsified span.toggler {
 	width:			30px;
 	border: 		none;
